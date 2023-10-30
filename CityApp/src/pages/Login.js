@@ -1,24 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import api from './config/api'
 
 export default function Login(props) {
 
-    /*async function testeApi(){
-        try {
-            const response = await api.get("/")
-            alert(response.data)
-            return "deu certo"
-        } catch (error) {
-            return error
-        }
-    }*/
+
+    function callback(data) {
+      if(data.didCancel) {
+        return;
+      }
+      if(data.error) {
+        return;
+      }
+      if(!data.uri) {
+        return;
+      }
+      setImage(data)
+    }
 
     return (
       <View style={styles.container}>
         <Text>Login</Text>
+        <Button title='Teste' onPress={() => ImagePicker.launchImageLibrary({}, callback)} />
         <Button 
-            onPress={() => props.navigation.navigate('Cadastro',{teste:"AAAAAa"})}
+            onPress={() => props.navigation.navigate("Cadastro")}
             title="Cadastrar">
             <Text>Cadastrar</Text>
         </Button>
